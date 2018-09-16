@@ -1,0 +1,21 @@
+{
+  "name": "tallervisualregression",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfagudelo96/TallerVisualRegression.git"
+  },
+  "author": "cf.agudelo12@uniandes.edu.co",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cfagudelo96/TallerVisualRegression/issues"
+  },
+  "homepage": "https://github.com/cfagudelo96/TallerVisualRegression#readme",
+  "devDependencies": {
+    "cypress": "^3.1.0"
+  }
+}
