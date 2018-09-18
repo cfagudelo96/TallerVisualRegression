@@ -17,5 +17,8 @@
   "homepage": "https://github.com/cfagudelo96/TallerVisualRegression#readme",
   "devDependencies": {
     "cypress": "^3.1.0"
+  },
+  "dependencies": {
+    "npm": "^6.4.1"
   }
 }
