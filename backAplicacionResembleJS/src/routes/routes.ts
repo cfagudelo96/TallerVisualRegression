@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 
-export class Routes {       
+import { ReportController } from '../controllers/reportController';
+
+export class Routes {
+    
+    reportController: ReportController = new ReportController();
+    
     public routes(app) {          
         app.route('/')
         .get((req: Request, res: Response) => {            
@@ -10,15 +15,7 @@ export class Routes {
         });
 
         app.route('/reports')
-        .get((req: Request, res: Response) => {
-            res.status(200).send({
-                message: 'Ready to go'
-            });
-        })
-        .post((req: Request, res: Response) => {
-            res.status(200).send({
-                message: 'Ready to go'
-            });
-        });
+           .get(this.reportController.getReports)
+           .post(this.reportController.generateReport);
     }
 }
