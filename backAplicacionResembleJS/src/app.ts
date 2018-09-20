@@ -4,6 +4,8 @@ import * as mongoose from 'mongoose';
 
 import { Routes } from './routes/routes';
 
+const cors = require('cors');
+
 class App {
   app: express.Application;
   routes: Routes = new Routes();
@@ -11,6 +13,7 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.config();
     this.routes.routes(this.app);
     this.mongoSetup();

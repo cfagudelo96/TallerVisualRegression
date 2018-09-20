@@ -1,4 +1,6 @@
 export class Report {
+  _id: String;
+  executed: Boolean;
   executionDate: Date;
-  additionalInfo: any;
+  diffInformation: any;
 }

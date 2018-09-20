@@ -1,12 +1,35 @@
 <div class="container">
   <div class="mt-5">
-    
     <div class="card shadow">
       <div class="card-body">
         <div class="card-title">
           <h2>Comparador de detalles de pruebas</h2>
         </div>
         <button (click)="generateReport()" class="btn btn-primary w-100">Generar reporte</button>
+      </div>
+    </div>
+    <div class="card shadow mt-3" *ngFor="let report of reports">
+      <div class="card-body">
+        <div class="row" *ngIf="report.executed">
+          <div class="col">
+            <h4>Fecha de ejecución</h4>
+            <p>{{report.executionDate | date : 'medium'}}</p>
+          </div>
+          <div class="col">
+            <h4>Imagen base</h4>
+          </div>
+          <div class="col">
+            <h4>Imagen modificada</h4>
+
+          </div>
+          <div class="col">
+            <h4>Imagen diferencias</h4>
+          </div>
+          <div class="col">
+            <h4>Información detallada</h4>
+          </div>
+        </div>
+        <h2 *ngIf="!report.executed">Pendiente de ejecución</h2>
       </div>
     </div>
   </div>
