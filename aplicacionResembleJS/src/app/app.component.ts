@@ -18,10 +18,22 @@ export class AppComponent implements OnInit {
   }
 
   generateReport() {
-    this.appService.generateReport();
+    this.appService.generateReport().subscribe(report => this.reports.unshift(report));
   }
 
   private getReports() {
-    this.appService.getReports().subscribe(reports => this.reports = reports);
+    this.appService.getReports().subscribe(reports => {
+      this.reports = reports;
+    });
+  }
+
+  arrayBufferToBase64(buffer: Buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 }

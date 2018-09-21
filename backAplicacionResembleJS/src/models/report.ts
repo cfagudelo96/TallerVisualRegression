@@ -16,6 +16,15 @@ export const ReportSchema = new Schema({
     type: Boolean,
     default: false
   },
+  baseImage: {
+    type: Buffer
+  },
+  modifiedImage: {
+    type: Buffer
+  },
+  diffImage: {
+    type: Buffer
+  },
   diffInformation: {
     type: Schema.Types.Mixed
   }
@@ -25,6 +34,9 @@ export class Report {
   _id: String;
   executed: Boolean;
   executionDate: Date;
+  baseImage: Buffer;
+  modifiedImage: Buffer;
+  diffImage: Buffer;
   diffInformation: any;
 
   constructor(_id: String, executionDate: Date) {
@@ -52,19 +64,22 @@ export class Report {
     }).then(() => {
       const preFileName = `generador-${currentReport._id}-pre.png`;
       const postFileName = `generador-${currentReport._id}-post.png`;
-      fs.copyFileSync(`./cypress/screenshots/colors_spec.js/${preFileName}`, `./assets/${preFileName}`);
-      fs.copyFileSync(`./cypress/screenshots/colors_spec.js/${postFileName}`, `./assets/${postFileName}`);
-      resemble(`./assets/${preFileName}`)
-        .compareTo(`./assets/${postFileName}`)
+      currentReport.baseImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${preFileName}`);
+      currentReport.modifiedImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${postFileName}`);
+      resemble(`./cypress/screenshots/colors_spec.js/${preFileName}`)
+        .compareTo(`./cypress/screenshots/colors_spec.js/${postFileName}`)
         .ignoreLess()
         .onComplete(function (data) {
-          fs.writeFileSync(`./assets/generador-${currentReport._id}-diff.png`, data.getBuffer());
+          currentReport.diffImage = data.getBuffer();
           currentReport.diffInformation.misMatchPercentage = data.misMatchPercentage;
           currentReport.diffInformation.isSameDimensions = data.isSameDimensions;
           currentReport.diffInformation.dimensionDifference = data.dimensionDifference;
           const ReportModel = mongoose.model('Report', ReportSchema);
           ReportModel.findById(currentReport._id, (err, report) => {
             report.executed = true;
+            report.baseImage = currentReport.baseImage;
+            report.modifiedImage = currentReport.modifiedImage;
+            report.diffImage = currentReport.diffImage;
             report.diffInformation = currentReport.diffInformation;
             report.save();
           });

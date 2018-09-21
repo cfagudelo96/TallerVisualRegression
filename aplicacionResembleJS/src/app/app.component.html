@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="mt-5">
     <div class="card shadow">
       <div class="card-body">
@@ -11,22 +11,28 @@
     <div class="card shadow mt-3" *ngFor="let report of reports">
       <div class="card-body">
         <div class="row" *ngIf="report.executed">
-          <div class="col">
+          <div class="col-1">
             <h4>Fecha de ejecución</h4>
             <p>{{report.executionDate | date : 'medium'}}</p>
           </div>
-          <div class="col">
+          <div class="col-3">
             <h4>Imagen base</h4>
+            <img [src]="'data:image/PNG;base64,' + arrayBufferToBase64(report.baseImage.data)" class="img-thumbnail">
           </div>
-          <div class="col">
+          <div class="col-3">
             <h4>Imagen modificada</h4>
-
+            <img [src]="'data:image/PNG;base64,' + arrayBufferToBase64(report.modifiedImage.data)" class="img-thumbnail">
           </div>
-          <div class="col">
+          <div class="col-3">
             <h4>Imagen diferencias</h4>
+            <img [src]="'data:image/PNG;base64,' + arrayBufferToBase64(report.diffImage.data)" class="img-thumbnail">
           </div>
-          <div class="col">
+          <div class="col-2">
             <h4>Información detallada</h4>
+            <p><strong>misMatchPercentage: </strong> {{report.diffInformation.misMatchPercentage}}%</p>
+            <p><strong>isSameDimensions: </strong> {{report.diffInformation.isSameDimensions}}</p>
+            <p><strong>Width difference: </strong> {{report.diffInformation.dimensionDifference.width}} px</p>
+            <p><strong>Height difference: </strong> {{report.diffInformation.dimensionDifference.height}} px</p>
           </div>
         </div>
         <h2 *ngIf="!report.executed">Pendiente de ejecución</h2>
