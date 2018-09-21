@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  arrayBufferToBase64(buffer: Buffer) {
+  arrayBufferToBase64(buffer) {
     let binary = '';
     const bytes = new Uint8Array(buffer);
     const len = bytes.byteLength;

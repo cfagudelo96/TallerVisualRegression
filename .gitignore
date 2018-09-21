@@ -1,3 +1,4 @@
 node_modules
 /backAplicacionResembleJS/assets/*.png
 */cypress/screenshots/*
+/backAplicacionResembleJS/dist

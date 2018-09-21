@@ -2,8 +2,8 @@ export class Report {
   _id: String;
   executed: Boolean;
   executionDate: Date;
-  baseImage: Buffer;
-  modifiedImage: Buffer;
-  diffImage: Buffer;
+  baseImage;
+  modifiedImage;
+  diffImage;
   diffInformation: any;
 }
